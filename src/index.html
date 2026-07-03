@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspector Ninja Browser</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo">
+        <span class="logo-icon">🥷</span>
+        <span class="logo-text">Inspector <span class="logo-ninja">Ninja</span></span>
+      </div>
+    </div>
+    
+    <div class="header-center">
+      <div class="nav-buttons">
+        <button id="backBtn" class="nav-btn" title="Voltar" disabled>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <button id="forwardBtn" class="nav-btn" title="Avançar" disabled>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+        <button id="reloadBtn" class="nav-btn" title="Recarregar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="url-bar-container">
+        <div class="loading-indicator" id="loadingIndicator"></div>
+        <input 
+          type="text" 
+          id="urlInput" 
+          class="url-input" 
+          placeholder="Digite uma URL ou busque algo..."
+          spellcheck="false"
+        />
+        <button id="goBtn" class="go-btn" title="Navegar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <div class="header-right">
+      <button id="elementInspectorBtn" class="element-inspector-btn" title="Listar todos os elementos da página" data-testid="element-inspector-btn">
+        🥷 Element Inspector
+      </button>
+      <button id="hoverHighlightBtn" class="tool-icon-btn" title="Ativar highlight mágico no hover" data-testid="hover-highlight-btn">
+        🪄
+      </button>
+      <button id="rulerBtn" class="tool-icon-btn" title="Ativar régua (medir entre 2 elementos)" data-testid="ruler-btn">
+        📐
+      </button>
+      <button id="toggleConsoleBtn" class="tool-icon-btn" title="Mostrar/ocultar Developer Tools" data-testid="toggle-console-btn">
+        📟
+      </button>
+    </div>
+  </header>
+
+  <!-- Inspector Sidebar -->
+  <aside class="inspector-sidebar" id="inspectorSidebar">
+    <div class="inspector-sidebar-header">
+      <h3>🥷 Element Inspector</h3>
+      <button id="closeInspector" class="close-inspector">✕</button>
+    </div>
+    
+    <div class="inspector-sidebar-content" id="inspectorContent">
+      <div class="inspector-empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 16v-4M12 8h.01"/>
+        </svg>
+        <p>Clique com botão direito em qualquer elemento da página</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Console Panel -->
+  <div class="console-panel">
+    <div class="console-header">
+      <span class="console-title">📟 Console</span>
+      <button id="clearConsole" class="console-clear">Limpar</button>
+    </div>
+    <div class="console-content" id="consoleContent">
+      <div class="console-message console-info">
+        <span class="console-timestamp">[INIT]</span>
+        <span class="console-text">Inspector Ninja Browser iniciado 🥷</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ruler measurement floating panel -->
+  <div class="ruler-panel" id="rulerPanel" data-testid="ruler-panel">
+    <div class="ruler-panel-header">
+      <span class="ruler-panel-title">📐 Régua</span>
+      <button id="closeRulerPanel" class="ruler-panel-close" data-testid="close-ruler-panel">✕</button>
+    </div>
+    <div class="ruler-panel-body" id="rulerPanelBody">
+      <p class="ruler-instructions">Clique no <strong>1º elemento</strong> no navegador para começar a medir.</p>
+    </div>
+  </div>
+
+  <!-- Webview -->
+  <webview 
+    id="browserWebview" 
+    src="about:blank"
+    style="display: inline-flex; width: 100%; height: calc(100vh - 60px); margin-top: 60px;"
+    partition="persist:main"
+    allowpopups
+  ></webview>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
